@@ -1,6 +1,7 @@
-#include <iostream>
 #include <opencv2/opencv.hpp>
-
+#include <iostream>
+#include <fstream>
+#include <string>
 
 using namespace cv;
 using namespace std;
@@ -10,6 +11,9 @@ int main() {
     // Шаг 1: Загрузить изображение
     Mat img = imread("ph.png", IMREAD_COLOR);
 
+    std::ofstream file("dolg.csv");
+    
+    
 
     // Преобразуем изображение в градации серого
     Mat gray;
@@ -51,10 +55,12 @@ int main() {
     line(img, Point(0, maxY), Point(img.cols, maxY), Scalar(0, 255, 0), 2); // верхняя граница
 
     // Отображаем результаты
-    cout << "Минимальная Y-координата (в пикселях): " << minY << endl;
-    cout << "Максимальная Y-координата (в пикселях): " << maxY << endl;
-    cout << "Минимальная Y-координата (реальная): " << realMinY << " нТл" << endl;
-    cout << "Максимальная Y-координата (реальная): " << realMaxY << " нТл" << endl;
+
+    file << "Минимальная Y-координата (в пикселях): " << minY << "\n";
+    file << "Максимальная Y-координата (в пикселях): " << maxY << "\n";
+    file << "Минимальная Y-координата: " << realMinY << "\n";
+    file << "Максимальная Y-координата: " << realMaxY;
+
 
     // Показать результат
     imshow("Result", img);
